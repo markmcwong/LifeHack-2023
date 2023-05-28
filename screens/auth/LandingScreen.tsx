@@ -78,6 +78,7 @@ export default function LandingScreen({ navigation }) {
           sliderWidth={275}
           itemWidth={275}
           layout={"default"}
+          loop={true}
           onSnapToItem={(index) => setActiveIndex(index)}
         />
         {pagination()}

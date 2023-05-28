@@ -1,7 +1,13 @@
 import * as React from "react";
 
 import { Divider, HStack, VStack } from "native-base";
-import { Image, ImageBackground, StyleSheet } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 import GoogleLoginButton from "./GoogleLoginButton";
 import OrDivider from "./OrDivider";
@@ -35,20 +41,23 @@ const SignInLink = ({ navigation }) => (
 export default function LandingScreen({ navigation }) {
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        {/* <View style={styles.container}> */}
-        <VStack style={{ flex: 1 }} width="75%">
-          <WelcomeText />
-          <LogoImage />
-          <SignUpForm />
-        </VStack>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.container}>
+          {/* <View style={styles.container}> */}
+          <VStack style={{ flex: 1 }} width="75%">
+            <WelcomeText />
+            <LogoImage />
+            <SignUpForm />
+          </VStack>
 
-        <VStack paddingBottom={2}>
-          <SignInLink navigation={navigation} />
-          <OrDivider />
-          <GoogleLoginButton />
-        </VStack>
-      </SafeAreaView>
+          <VStack paddingBottom={2}>
+            <SignInLink navigation={navigation} />
+            <OrDivider />
+            <GoogleLoginButton />
+          </VStack>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+
       <ImageBackground
         source={require("../../assets/images/landing_background.png")}
         resizeMode="cover"

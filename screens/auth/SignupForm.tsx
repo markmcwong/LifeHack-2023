@@ -1,7 +1,7 @@
 import { Button, Checkbox, Input, VStack } from "native-base";
+import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
-import { StyleSheet } from "react-native";
 import { Text } from "../../components/Themed";
 import { register } from "../../services/auth";
 

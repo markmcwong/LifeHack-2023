@@ -10,7 +10,14 @@ import {
   Input,
   VStack,
 } from "native-base";
-import { CheckBox, Image, ImageBackground, StyleSheet } from "react-native";
+import {
+  CheckBox,
+  Image,
+  ImageBackground,
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Text, View } from "../../components/Themed";
 import { login, loginWithGoogle } from "../../services/auth";
 
@@ -62,18 +69,20 @@ export default function LoginScreen({ navigation }) {
   };
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <TitleText />
-        <LogoImage />
-        <VStack style={{ flex: 1 }} width="75%">
-          <LoginForm />
-        </VStack>
-        <VStack paddingBottom={5}>
-          <CreateAccountLink navigation={navigation} />
-          <OrDivider />
-          <GoogleLoginButton />
-        </VStack>
-      </SafeAreaView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.container}>
+          <TitleText />
+          <LogoImage />
+          <VStack style={{ flex: 1 }} width="75%">
+            <LoginForm />
+          </VStack>
+          <VStack paddingBottom={5}>
+            <CreateAccountLink navigation={navigation} />
+            <OrDivider />
+            <GoogleLoginButton />
+          </VStack>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
       <ImageBackground
         source={require("../../assets/images/landing_background.png")}
         resizeMode="cover"

@@ -159,8 +159,3 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 });
-<<<<<<< HEAD
-=======
-
-// export default LandingScreen;
->>>>>>> d9b3a35ecf99cb19ebcd150168b397f4647b9a01

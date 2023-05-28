@@ -1,36 +1,37 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import {
-  VStack,
-  Image,
-  Button,
-  HStack,
-  Box,
-  Avatar,
-  Badge,
-  Icon,
-  Center,
-  ZStack,
-  Container,
-  Fab,
-} from "native-base";
 import * as React from "react";
-import { useEffect, useState } from "react";
+
 import {
+  AntDesign,
   Ionicons,
   MaterialCommunityIcons,
-  AntDesign,
 } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
-import { paddingLeft } from "styled-system";
-
-import EditScreenInfo from "../components/EditScreenInfo";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Center,
+  Container,
+  Fab,
+  HStack,
+  Icon,
+  Image,
+  VStack,
+  ZStack,
+} from "native-base";
 import { Text, View } from "../components/Themed";
-import DepositScreen from "./DepositFormScreen";
 import { connectTwoUsers, getUserDetails } from "../services/firestore";
+import { useEffect, useState } from "react";
+
+import { BarCodeScanner } from "expo-barcode-scanner";
+import DepositScreen from "./DepositFormScreen";
+import EditScreenInfo from "../components/EditScreenInfo";
+import { ScrollView } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { paddingLeft } from "styled-system";
 import { useSelector } from "react-redux";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 const languages = ["English", "Japanese", "Mandarin"];
 const interests = ["Classical Music", "Desserts", "Tai Chi"];
@@ -249,7 +250,7 @@ export default function PersonDetailScreen({ navigation, route }) {
                   // justifyContent: "flex-start",
                 }}
               >
-                {userDetails && userDetails.bio != ""
+                {userDetails && userDetails.bio && userDetails.bio != ""
                   ? (userDetails.bio as string).split("\\n").map((x, index) => (
                       <Text>
                         {index == 0 ? "" : "\n"}

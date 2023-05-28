@@ -1,18 +1,7 @@
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  HStack,
-  Icon,
-  IconButton,
-  Badge,
-  StatusBar,
-  VStack,
-  Text,
-  Image,
-  Divider,
-} from "native-base";
+import "firebase/firestore";
+
 import * as React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "../components/Themed";
+
 import {
   Animated,
   Dimensions,
@@ -20,14 +9,28 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Badge,
+  Divider,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  StatusBar,
+  Text,
+  VStack,
+} from "native-base";
 import { SceneMap, TabView } from "react-native-tab-view";
-import { logout } from "../services/auth";
-import { useEffect, useState } from "react";
-import { getHistory } from "../services/firestore";
 import { connect, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "../components/Themed";
 import firebase from "firebase";
-import "firebase/firestore";
+import { getHistory } from "../services/firestore";
 import { getUserDetails } from "../services/firestore";
+import { logout } from "../services/auth";
 
 const User = {
   name: "Robe Jobs",
@@ -98,7 +101,7 @@ const SecondRoute = (state: any, props: any) => {
             fontWeight="300"
             fontFamily="Avenir"
           >
-            {userDetails && userDetails.bio != ""
+            {userDetails && userDetails.bio && userDetails.bio != ""
               ? (userDetails.bio as string).split("\\n").map((x, index) => (
                   <Text>
                     {index == 0 ? "" : "\n"}

@@ -8,9 +8,26 @@ import { login } from "../../services/auth";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = () => {
+    if (!email) {
+      setError("Please enter your email.");
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter your password.");
+      return;
+    }
+
+    // Call the login function
+    login(email, password);
+  };
 
   return (
     <VStack space={3}>
+      {error && <Text style={styles.error}>{error}</Text>}
       <Input
         padding={4}
         placeholder="Please enter your email"
@@ -32,13 +49,7 @@ const LoginForm = () => {
         </Checkbox>
         <Text style={styles.link}>Forgot Password?</Text>
       </HStack>
-      <Button
-        style={styles.button}
-        onPress={() => {
-          console.log(email);
-          login(email, password);
-        }}
-      >
+      <Button style={styles.button} onPress={handleLogin}>
         Login
       </Button>
     </VStack>
@@ -64,6 +75,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 15,
     paddingBottom: 15,
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 10,
   },
 });
 

@@ -6,10 +6,8 @@ import { ImageBackground, StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 
 import GoogleLoginButton from "./GoogleLoginButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 // import carouselData from "../mock_data/LandingCarouselData.json"; // Update the path accordingly
-import { loginWithGoogle } from "../../services/auth";
 import { useState } from "react";
 
 export default function LandingScreen({ navigation }) {
@@ -161,5 +159,3 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 });
-
-export default LandingScreen;

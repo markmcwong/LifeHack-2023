@@ -1,4 +1,14 @@
-import { Button, Fab, HStack, Icon, Text, VStack, View } from "native-base";
+import {
+  Button,
+  Fab,
+  FormControl,
+  HStack,
+  Icon,
+  Input,
+  Text,
+  VStack,
+  View,
+} from "native-base";
 import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
 
@@ -23,6 +33,7 @@ const options = [
 
 const SelectFamiliarLang = (props: any) => {
   const [active, setActive] = useState<String[]>([]);
+  const [otherLang, setOtherLang] = useState("");
   const user = useSelector((state: any) => state.user);
 
   const handleLanguageSelection = (option: string) => {
@@ -32,10 +43,13 @@ const SelectFamiliarLang = (props: any) => {
     setActive(newActive);
   };
 
+  const handleOtherLangInput = (text: string) => {
+    setOtherLang(text);
+  };
+
   return (
     <View style={styles.container}>
       <VStack h="100%" w="100%" justifyContent="center" alignItems="center">
-        {/* <VStack> */}
         <Text
           paddingX={12}
           color="#F9A826"
@@ -56,7 +70,6 @@ const SelectFamiliarLang = (props: any) => {
         >
           Not including mother tongue
         </Text>
-        {/* </VStack> */}
         <HStack
           flexWrap="wrap"
           p={12}
@@ -79,7 +92,21 @@ const SelectFamiliarLang = (props: any) => {
               {option}
             </Button>
           ))}
+          {active.includes("Others") && (
+            <FormControl w="100%">
+              <FormControl.Label>Type your language here:</FormControl.Label>
+              <Input
+                padding={4}
+                mt={1}
+                placeholder="Example: French"
+                value={otherLang}
+                w="100%"
+                onChangeText={handleOtherLangInput}
+              />
+            </FormControl>
+          )}
         </HStack>
+
         <Fab
           position="absolute"
           size="sm"
@@ -87,7 +114,10 @@ const SelectFamiliarLang = (props: any) => {
           bottom={10}
           right={10}
           onPress={() => {
-            setUserFamiliarLang(active, user.uid);
+            setUserFamiliarLang(
+              active.includes("Others") ? [...active, otherLang] : active,
+              user.uid
+            );
             props.navigation.navigate("selectInterests");
           }}
           icon={

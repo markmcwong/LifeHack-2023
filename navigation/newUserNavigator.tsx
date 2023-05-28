@@ -1,10 +1,11 @@
-import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import selectYouthElderly from "../screens/selectYouthElderly";
-import selfIntroduction from "../screens/selfIntroduction";
-import selectStartingLang from "../screens/selectStartingLang";
-import selectFamiliarLang from "../screens/selectFamiliarLang";
-import selectInterests from "../screens/selectInterests";
+
+import { createStackNavigator } from "@react-navigation/stack";
+import selectFamiliarLang from "../screens/new_users/SelectFamiliarLang";
+import selectInterests from "../screens/new_users/SelectInterests";
+import selectStartingLang from "../screens/new_users/SelectStartingLang";
+import selectYouthElderly from "../screens/new_users/SelectYouthElderly";
+import selfIntroduction from "../screens/new_users/SelfIntroduction";
 
 const NewUserNavigator = createStackNavigator();
 

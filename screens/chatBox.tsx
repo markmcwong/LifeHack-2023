@@ -1,17 +1,5 @@
-import {
-  VStack,
-  Icon,
-  Text,
-  View,
-  IconButton,
-  Button,
-  HStack,
-  Image,
-} from "native-base";
 import * as React from "react";
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { LogBox, StyleSheet } from "react-native";
+
 import {
   Bubble,
   Composer,
@@ -19,9 +7,23 @@ import {
   InputToolbar,
   Send,
 } from "react-native-gifted-chat";
-import { connect } from "react-redux";
+import {
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Text,
+  VStack,
+  View,
+} from "native-base";
+import { LogBox, StyleSheet } from "react-native";
 import { fetchMessagesByGroupId, sendNewMessage } from "../services/firestore";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { connect } from "react-redux";
 
 LogBox.ignoreAllLogs();
 
@@ -147,19 +149,6 @@ const ChatBox = ({ route, user, navigation }) => {
 };
 
 export default connect(mapStateToProps)(ChatBox);
-
-// const AuthNavigator = createStackNavigator();
-// const DepositStack = ({ navigation }) => (
-//   <AuthNavigator.Navigator
-//     screenOptions={{ headerShown: false }}
-//     initialRouteName="Form"
-//   >
-//     <AuthNavigator.Screen name="Scan" component={TabOneScreen} />
-
-//     {/* <AuthNavigator.Screen name="Signup" component={SignupScreen} /> */}
-//   </AuthNavigator.Navigator>
-// );
-// export default DepositStack;
 
 const styles = StyleSheet.create({
   sendBtn: {

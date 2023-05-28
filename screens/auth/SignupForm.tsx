@@ -9,50 +9,55 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const isUsernameValid = username.length >= 8;
 
   return (
-    <KeyboardAvoidingView>
-      <VStack space={4}>
-        <Input
-          paddingX={4}
-          placeholder="Please enter your email"
-          backgroundColor="#F1F1F1"
-          value={email}
-          height={10}
-          onChangeText={(e: string) => setEmail(e)}
-        />
-        <Input
-          paddingX={4}
-          type="password"
-          placeholder="Password"
-          backgroundColor="#F1F1F1"
-          value={password}
-          height={10}
-          onChangeText={(e: string) => setPassword(e)}
-        />
-        <Input
-          paddingX={4}
-          placeholder="User Name"
-          backgroundColor="#F1F1F1"
-          value={username}
-          height={10}
-          onChangeText={(e: string) => setUsername(e)}
-        />
-        <Text style={styles.passwordInfo}>
-          Password should consist of at least 8 characters, including letters
-          and numbers
+    <VStack space={4}>
+      <Input
+        paddingX={4}
+        placeholder="Please enter your email"
+        backgroundColor="#F1F1F1"
+        value={email}
+        height={10}
+        onChangeText={(e: string) => setEmail(e)}
+      />
+      <Input
+        paddingX={4}
+        placeholder="User Name"
+        backgroundColor="#F1F1F1"
+        value={username}
+        height={10}
+        onChangeText={(e: string) => setUsername(e)}
+      />
+      <Input
+        paddingX={4}
+        type="password"
+        placeholder="Password"
+        backgroundColor="#F1F1F1"
+        value={password}
+        height={10}
+        onChangeText={(e: string) => setPassword(e)}
+      />
+      {/* {username.length > 0 && !isUsernameValid && (
+        <Text style={styles.errorText}>
+          Username should consist of at least 8 characters
         </Text>
-        <Checkbox value="remembered" alignSelf="flex-start">
-          <Text style={styles.link}>Remember me</Text>
-        </Checkbox>
-        <Button
-          style={styles.button}
-          onPress={() => register(username, email, password)}
-        >
-          Sign Up
-        </Button>
-      </VStack>
-    </KeyboardAvoidingView>
+      )} */}
+      <Text style={styles.passwordInfo}>
+        Username should be at least 6 characters long. Password should consist of at least 8 characters, including letters and
+        numbers. 
+      </Text>
+      <Checkbox value="remembered" alignSelf="flex-start">
+        <Text style={styles.link}>Remember me</Text>
+      </Checkbox>
+      <Button
+        style={styles.button}
+        onPress={() => register(username, email, password)}
+        isDisabled={!isUsernameValid}
+      >
+        Sign Up
+      </Button>
+    </VStack>
   );
 };
 
@@ -75,6 +80,10 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 15,
     paddingBottom: 15,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 11,
   },
 });
 

@@ -34,7 +34,7 @@ export default function BottomTabNavigator() {
   const user = useSelector((state: any) => state.user);
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBar={(props) => <MyTabBar {...props} />}
       tabBarOptions={{
         activeTintColor: user.isYouth ? "#ff9f00" : "#78C9A7",
@@ -48,7 +48,7 @@ export default function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneNavigator}
         options={{
           // style: { backgroundColor: "#ffffff" },
@@ -59,7 +59,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Chat"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -69,7 +69,7 @@ export default function BottomTabNavigator() {
       />
       {user.isYouth && (
         <BottomTab.Screen
-          name="TabThree"
+          name="Achievement"
           component={Achievement}
           options={{
             tabBarIcon: ({ color }) => (
@@ -79,7 +79,7 @@ export default function BottomTabNavigator() {
         />
       )}
       <BottomTab.Screen
-        name="TabFour"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (

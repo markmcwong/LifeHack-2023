@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email) {
       setError("Please enter your email.");
       return;
@@ -21,8 +21,11 @@ const LoginForm = () => {
       return;
     }
 
-    // Call the login function
-    login(email, password);
+    try {
+      await login(email, password);
+    } catch (error) {
+      setError("Invalid username or password.");
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import { Button, Checkbox, HStack, Input, VStack } from "native-base";
+import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
-import { StyleSheet } from "react-native";
 import { Text } from "../../components/Themed";
 import { login } from "../../services/auth";
 
@@ -29,33 +29,42 @@ const LoginForm = () => {
   };
 
   return (
-    <VStack space={3}>
-      {error && <Text style={styles.error}>{error}</Text>}
-      <Input
-        padding={4}
-        placeholder="Please enter your email"
-        backgroundColor="#F1F1F1"
-        value={email}
-        onChangeText={(e: string) => setEmail(e)}
-      />
-      <Input
-        padding={4}
-        type="password"
-        placeholder="Password"
-        backgroundColor="#F1F1F1"
-        value={password}
-        onChangeText={(e: string) => setPassword(e)}
-      />
-      <HStack justifyContent="space-between">
-        <Checkbox value="test" alignSelf="flex-start">
-          <Text style={{ ...styles.link, textAlign: "left" }}>Remember me</Text>
-        </Checkbox>
-        <Text style={styles.link}>Forgot Password?</Text>
-      </HStack>
-      <Button style={styles.button} onPress={handleLogin}>
-        Login
-      </Button>
-    </VStack>
+    <KeyboardAvoidingView>
+      <VStack space={3}>
+        <Input
+          padding={4}
+          placeholder="Please enter your email"
+          backgroundColor="#F1F1F1"
+          value={email}
+          onChangeText={(e: string) => setEmail(e)}
+        />
+        <Input
+          padding={4}
+          type="password"
+          placeholder="Password"
+          backgroundColor="#F1F1F1"
+          value={password}
+          onChangeText={(e: string) => setPassword(e)}
+        />
+        <HStack justifyContent="space-between">
+          <Checkbox value="test" alignSelf="flex-start">
+            <Text style={{ ...styles.link, textAlign: "left" }}>
+              Remember me
+            </Text>
+          </Checkbox>
+          <Text style={styles.link}>Forgot Password?</Text>
+        </HStack>
+        <Button
+          style={styles.button}
+          onPress={() => {
+            console.log(email);
+            login(email, password);
+          }}
+        >
+          Login
+        </Button>
+      </VStack>
+    </KeyboardAvoidingView>
   );
 };
 

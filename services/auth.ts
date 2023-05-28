@@ -8,33 +8,41 @@ if (!firebase.apps.length) {
 }
 
 export async function login(email: string, password: string) {
-  const result = await firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password);
-  store.dispatch({
-    type: "LOGIN",
-    name: result.user?.displayName,
-    uid: result.user?.uid,
-  });
+  try {
+    const result = await firebase.auth().signInWithEmailAndPassword(email, password);
+    store.dispatch({
+      type: "LOGIN",
+      name: result.user?.displayName,
+      uid: result.user?.uid,
+    });
+  } catch (error) {
+    throw new Error("Invalid username or password."); // Throw an error for invalid login details
+  }
 }
 
 export async function register(name: string, email: string, password: string) {
-  console.log("clicked");
-  const result = await firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password);
-  await result.user?.updateProfile({ displayName: name });
-  createNewUserRecord(name, email, result.user!.uid);
-  store.dispatch({
-    type: "LOGIN",
-    name: result.user?.displayName,
-    uid: result.user?.uid,
-    isNewUser: true,
-  });
+  try {
+    console.log("clicked");
+    const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    await result.user?.updateProfile({ displayName: name });
+    createNewUserRecord(name, email, result.user!.uid);
+    store.dispatch({
+      type: "LOGIN",
+      name: result.user?.displayName,
+      uid: result.user?.uid,
+      isNewUser: true,
+    });
+  } catch (error) {
+    throw new Error("Registration failed. Please try again."); // Throw an error for registration failure
+  }
 }
 
 export async function logout() {
-  console.log("Logging out");
-  await firebase.auth().signOut();
-  store.dispatch({ type: "LOGOUT" });
+  try {
+    console.log("Logging out");
+    await firebase.auth().signOut();
+    store.dispatch({ type: "LOGOUT" });
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
 }

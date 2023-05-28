@@ -31,6 +31,7 @@ const LoginForm = () => {
   return (
     <KeyboardAvoidingView>
       <VStack space={3}>
+       {error && <Text style={styles.error}>{error}</Text>}
         <Input
           padding={4}
           placeholder="Please enter your email"
@@ -54,13 +55,7 @@ const LoginForm = () => {
           </Checkbox>
           <Text style={styles.link}>Forgot Password?</Text>
         </HStack>
-        <Button
-          style={styles.button}
-          onPress={() => {
-            console.log(email);
-            login(email, password);
-          }}
-        >
+        <Button style={styles.button} onPress={handleLogin}>
           Login
         </Button>
       </VStack>

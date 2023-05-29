@@ -14,7 +14,7 @@ const SignUpForm = () => {
   const isPasswordValid = password.length >= 8;
 
   const handleSignUp = () => {
-    if (!isUsernameValid) {
+    if (!isUsernameValid || !username) {
       setError("Username should consist of at least 6 characters.");
       return;
     }
@@ -29,7 +29,7 @@ const SignUpForm = () => {
       return;
     }
 
-    if (!isPasswordValid) {
+    if (!isPasswordValid || !password) {
       setError("Password should consist of at least 8 characters.");
       return;
     }

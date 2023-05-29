@@ -129,12 +129,12 @@ const Achievement = (props: any) => {
         </HStack>
 
         <VStack
-          h="100%"
+          h="72%"
           w="100%"
           style={{ justifyContent: "flex-start", alignItems: "center" }}
         >
           <Image
-            width="70%"
+            width="100%"
             resizeMode="contain"
             height="30%"
             source={require("../assets/images/achievement.png")}
@@ -146,54 +146,56 @@ const Achievement = (props: any) => {
             rounded="xl"
             p={8}
             style={{
-              //   position: "absolute",
               marginTop: "-7%",
+              // marginBottom: "-30%
               zIndex: 10,
               width: "100%",
               height: "100%",
               borderRadius: 40,
             }}
           >
-            {achievementList.map((item, array) => (
-              <HStack
-                space={4}
-                w="100%"
-                style={{ alignItems: "center", marginBottom: "10%" }}
-              >
-                {item.medal}
-                <VStack
-                  space={2}
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {achievementList.map((item, array) => (
+                <HStack
+                  space={4}
                   w="100%"
-                  style={{
-                    alignItems: "flex-start",
-                    justifyContent: "flex-start",
-                  }}
+                  style={{ alignItems: "center", marginBottom: "10%" }}
                 >
-                  <Text
+                  {item.medal}
+                  <VStack
+                    space={2}
+                    w="100%"
                     style={{
-                      fontSize: 20,
-                      fontWeight: "800",
-                      color: "#46454C",
-                      fontFamily: "Avenir",
+                      alignItems: "flex-start",
+                      justifyContent: "flex-start",
                     }}
                   >
-                    {item.title}
-                  </Text>
-
-                  <HStack space={2} width="80%">
                     <Text
                       style={{
-                        fontSize: 14,
-                        fontWeight: "200",
+                        fontSize: 20,
+                        fontWeight: "800",
                         color: "#46454C",
+                        fontFamily: "Avenir",
                       }}
                     >
-                      {item.description}
+                      {item.title}
                     </Text>
-                  </HStack>
-                </VStack>
-              </HStack>
-            ))}
+
+                    <HStack space={2} width="80%">
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: "200",
+                          color: "#46454C",
+                        }}
+                      >
+                        {item.description}
+                      </Text>
+                    </HStack>
+                  </VStack>
+                </HStack>
+              ))}
+            </ScrollView>
           </Box>
         </VStack>
       </View>

@@ -90,10 +90,7 @@ export default function PersonDetailScreen({ navigation, route }) {
               w="100%"
               alignItems="flex-start"
               style={{
-                //   position: "absolute",
                 marginTop: "-10%",
-                // zIndex: 10,
-                // borderRadius: 40,
               }}
             >
               <Text

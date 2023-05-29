@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { LogBox, StyleSheet } from "react-native";
+import { LogBox, StyleSheet, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
 import { withSafeAreaInsets } from "react-native-safe-area-context";
@@ -163,12 +163,7 @@ const TabOneScreen = (props: any) => {
             }}
           >
             {listOfUsers!.map((item: any, index: number) => (
-              <Pressable
-                onPress={() =>
-                  props.navigation.navigate("PersonDetailScreen", {
-                    id: item.id,
-                  })
-                }
+              <Box
                 bg="#ffffff"
                 rounded="xl"
                 p={8}
@@ -179,12 +174,20 @@ const TabOneScreen = (props: any) => {
                 }}
               >
                 <HStack space={4} w="100%" style={{ alignItems: "center" }}>
-                  <Avatar
-                    size="lg"
-                    source={require("../assets/images/robeJobs.jpg")}
-                  >
-                    SS
-                  </Avatar>
+                  <TouchableOpacity 
+                      onPress={() =>
+                        props.navigation.navigate("PersonDetailScreen", {
+                          id: item.id,
+                        })
+                      }
+                    >
+                    <Avatar
+                      size="lg"
+                      source={require("../assets/images/robeJobs.jpg")}
+                    >
+                      A
+                    </Avatar>
+                  </TouchableOpacity>
                   <VStack
                     space={2}
                     w="100%"
@@ -251,7 +254,7 @@ const TabOneScreen = (props: any) => {
                     </ScrollView>
                   </VStack>
                 </HStack>
-              </Pressable>
+              </Box>
             ))}
           </View>
         )}

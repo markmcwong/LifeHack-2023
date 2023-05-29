@@ -85,6 +85,7 @@ export default function PersonDetailScreen({ navigation, route }) {
               borderTopRadius={25}
               paddingLeft={8}
               py={7}
+              px={8}
               h={180}
               w="100%"
               alignItems="flex-start"
@@ -118,56 +119,51 @@ export default function PersonDetailScreen({ navigation, route }) {
               >
                 Languages:
               </Text>
-              <Container h={12}>
-                <ScrollView
-                  horizontal={true}
-                  // height="60%"
-                  // bounces={false}
-                  overScrollMode="never"
+              <ScrollView
+                horizontal={true}
+                style={{
+                  marginLeft: "3%",
+                  marginBottom: "1%",
+                  width: "100%",
+                }}
+                showsHorizontalScrollIndicator={false}
+              >
+                <HStack
+                  space={4}
+                  width="100%"
                   style={{
-                    marginLeft: "3%",
-                    marginBottom: "1%",
-                    width: "100%",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
                   }}
-                  showsHorizontalScrollIndicator={false}
                 >
-                  <HStack
-                    space={4}
-                    width="100%"
-                    // height="80%"
-                    style={{
-                      justifyContent: "flex-start",
-                      alignItems: "center",
-                    }}
-                  >
-                    {userDetails &&
-                      userDetails.languages &&
-                      userDetails.languages.map((language, index) => (
-                        <Badge
-                          bg="#ffffff"
-                          variant={"outline"}
-                          colorScheme={
-                            index == 0
-                              ? user.isYouth
-                                ? "orange"
-                                : "green"
-                              : "light"
-                          }
-                          style={{
-                            alignItems: "center",
-                            minWidth: 80,
-                            padding: 12,
-                            paddingLeft: 12,
-                            paddingRight: 12,
-                            borderRadius: 20,
-                          }}
-                        >
-                          {language}
-                        </Badge>
-                      ))}
-                  </HStack>
-                </ScrollView>
-              </Container>
+                  {userDetails &&
+                    userDetails.languages &&
+                    userDetails.languages.map((language, index) => (
+                      <Badge
+                        bg="#ffffff"
+                        variant={"outline"}
+                        colorScheme={
+                          index == 0
+                            ? user.isYouth
+                              ? "orange"
+                              : "green"
+                            : "light"
+                        }
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minWidth: 80,
+                          padding: 12,
+                          paddingLeft: 12,
+                          paddingRight: 12,
+                          borderRadius: 20,
+                        }}
+                      >
+                        {language}
+                      </Badge>
+                    ))}
+                </HStack>
+              </ScrollView>
             </Box>
             <VStack
               bg="#ffffff"
@@ -180,14 +176,9 @@ export default function PersonDetailScreen({ navigation, route }) {
               justifyContent="flex-start"
               alignItems="flex-start"
               style={{
-                // position: "absolute",
                 marginTop: "-2.5%",
                 zIndex: 20,
-                // height: "50%",
                 borderRadius: 20,
-                // bottom: "50%",
-                // flex: 1,
-                // display: "flex",
               }}
             >
               <Text
@@ -203,37 +194,35 @@ export default function PersonDetailScreen({ navigation, route }) {
                 About
               </Text>
 
-              <Container h={12}>
-                <ScrollView
-                  horizontal={true}
-                  width="100%"
-                  style={{ marginLeft: "3%" }}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {userDetails &&
-                    userDetails.interests &&
-                    userDetails.interests.map((interest, index) => (
-                      <Badge
-                        variant={"outline"}
-                        bg="#ffffff"
-                        colorScheme={user.isYouth ? "orange" : "green"}
-                        style={{
-                          alignItems: "center",
-                          minWidth: 80,
-                          padding: 12,
-                          paddingLeft: 12,
-                          paddingRight: 12,
-                          marginRight: 12,
-                          height: 40,
-                          // paddingBottom: 0,
-                          borderRadius: 20,
-                        }}
-                      >
-                        {interest}
-                      </Badge>
-                    ))}
-                </ScrollView>
-              </Container>
+              <ScrollView
+                horizontal={true}
+                width="100%"
+                style={{ marginLeft: "3%" }}
+                showsHorizontalScrollIndicator={false}
+              >
+                {userDetails &&
+                  userDetails.interests &&
+                  userDetails.interests.map((interest, index) => (
+                    <Badge
+                      variant={"outline"}
+                      bg="#ffffff"
+                      colorScheme={user.isYouth ? "orange" : "green"}
+                      style={{
+                        alignItems: "center",
+                        minWidth: 80,
+                        padding: 12,
+                        paddingLeft: 12,
+                        paddingRight: 12,
+                        marginRight: 12,
+                        height: 40,
+                        // paddingBottom: 0,
+                        borderRadius: 20,
+                      }}
+                    >
+                      {interest}
+                    </Badge>
+                  ))}
+              </ScrollView>
               <Text
                 // flex={1}
                 h="100%"

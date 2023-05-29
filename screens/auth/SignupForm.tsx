@@ -9,10 +9,39 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const isUsernameValid = username.length >= 8;
+  const isPasswordValid = password.length >= 8;
+
+  const handleSignUp = () => {
+    if (!isUsernameValid) {
+      setError("Username should consist of at least 6 characters.");
+      return;
+    }
+
+    if (!email) {
+      setError("Please enter your email.");
+      return;
+    }
+  
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!isPasswordValid) {
+      setError("Password should consist of at least 8 characters.");
+      return;
+    }
+
+    // Call the register function
+    register(username, email, password);
+  };
+
 
   return (
     <VStack space={4}>
+      {error && <Text style={styles.errorText}>{error}</Text>}
       <Input
         paddingX={4}
         placeholder="Please enter your email"
@@ -38,22 +67,16 @@ const SignUpForm = () => {
         height={10}
         onChangeText={(e: string) => setPassword(e)}
       />
-      {/* {username.length > 0 && !isUsernameValid && (
-        <Text style={styles.errorText}>
-          Username should consist of at least 8 characters
-        </Text>
-      )} */}
       <Text style={styles.passwordInfo}>
-        Username should be at least 6 characters long. Password should consist of at least 8 characters, including letters and
-        numbers. 
+        
       </Text>
       <Checkbox value="remembered" alignSelf="flex-start">
         <Text style={styles.link}>Remember me</Text>
       </Checkbox>
       <Button
         style={styles.button}
-        onPress={() => register(username, email, password)}
-        isDisabled={!isUsernameValid}
+        onPress={handleSignUp}
+        // isDisabled={!isUsernameValid}
       >
         Sign Up
       </Button>
@@ -84,6 +107,8 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontSize: 11,
+    textAlign: "center",
+    
   },
 });
 

@@ -60,6 +60,7 @@ export default function PersonDetailScreen({ navigation, route }) {
   const user = useSelector((state: any) => state.user);
   const [isShown, setIsShown] = useState(true);
   const [userDetails, setUserDetails] = useState(null);
+  console.log(user.isYouth)
   useEffect(() => {
     getUserDetails(route.params.id, (val: any) => setUserDetails(val));
   }, []);
@@ -265,8 +266,8 @@ export default function PersonDetailScreen({ navigation, route }) {
                   icon={
                     <Icon
                       // position="absolute"
-                      size="sm"
-                      color="white"
+                      size="lg"
+                      color="black"
                       as={Ionicons}
                       name="chatbubble-outline"
                     />

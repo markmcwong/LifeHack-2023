@@ -1,6 +1,8 @@
-import firebase from "firebase";
 import "firebase/firestore";
+
 import * as firestoreTypes from "@firebase/firestore-types";
+
+import firebase from "firebase";
 
 export const parseMessages = (data: any) => {
   return data.map((item: any, index: number) => {
@@ -12,6 +14,8 @@ export const parseMessages = (data: any) => {
         item.createdAt != null
           ? (item.createdAt as firebase.firestore.Timestamp).toDate()
           : Date.now(),
+      warning: item.warning ?? false,
+      warningText: item.warningText ?? "",
       user: {
         _id: item.sentBy,
         // name: "React Native",
@@ -27,11 +31,13 @@ export const parseGroups = (uid: string, data: any) => {
     return {
       id: item.id,
       lastText: item.lastText ?? "",
-      lastSent: (item.lastSent as firebase.firestore.Timestamp)?.toDate() ?? new Date(),
-      members: item.members
-        ?.filter((x) => (x as firestoreTypes.DocumentReference)?.id != uid)
-        ?.map((x) => (x as firestoreTypes.DocumentReference)?.id)
-        ?.shift() ?? "",
+      lastSent:
+        (item.lastSent as firebase.firestore.Timestamp)?.toDate() ?? new Date(),
+      members:
+        item.members
+          ?.filter((x) => (x as firestoreTypes.DocumentReference)?.id != uid)
+          ?.map((x) => (x as firestoreTypes.DocumentReference)?.id)
+          ?.shift() ?? "",
     };
   });
 };

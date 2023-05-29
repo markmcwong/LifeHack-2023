@@ -1,64 +1,59 @@
-/**
- * Learn more about createBottomTabNavigator:
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-
 import * as React from "react";
 
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { HStack, Icon, Image, VStack } from "native-base";
 import { Text, View } from "../components/Themed";
 
 import Achievement from "../screens/achievement";
-import ChatBox from "../screens/chatBox";
-import { ChatListScreen } from "../screens/ChatListScreen";
-import Colors from "../constants/Colors";
+import { BottomTabParamList } from "../types";
+import { ChatListScreen } from "../screens/chat/ChatListScreen";
 import { Ionicons } from "@expo/vector-icons";
-import PersonDetailScreen from "../screens/PersonDetail";
 import ProfileScreen from "../screens/ProfileScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
 import { TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import selectFamiliarLang from "../screens/new_users/SelectFamiliarLang";
-import selectInterests from "../screens/new_users/selectInterests";
-import selectStartingLanguage from "../screens/selectStartingLang";
-import selectYouthElderly from "../screens/selectYouthElderly";
-import selfIntroduction from "../screens/selfIntroduction";
 import { useSelector } from "react-redux";
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof Ionicons>["name"];
+  color: string;
+}) {
+  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
 
 export default function BottomTabNavigator() {
   const user = useSelector((state: any) => state.user);
-  return (
-    <BottomTab.Navigator
-      initialRouteName="Home"
-      tabBar={(props) => <MyTabBar {...props} />}
-      tabBarOptions={{
-        activeTintColor: user.isYouth ? "#ff9f00" : "#78C9A7",
-        // "#EFB556",
-        inactiveTintColor: "#c2c2c2",
-        safeAreaInsets: { bottom: 10 },
 
-        labelStyle: {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#78C9A7",
+        tabBarInactiveTintColor: "#c2c2c2",
+        tabBarLabelStyle: {
           display: "none",
         },
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+          null,
+        ],
       }}
+      tabBar={(props) => <MyTabBar {...props} />}
     >
-      <BottomTab.Screen
+      <Tab.Screen
         name="Home"
         component={TabOneNavigator}
         options={{
-          // style: { backgroundColor: "#ffffff" },
-          // tabBarVisible: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="home-outline" color={color} />
           ),
         }}
       />
-      <BottomTab.Screen
+      <Tab.Screen
         name="Chat"
         component={TabTwoNavigator}
         options={{
@@ -68,7 +63,7 @@ export default function BottomTabNavigator() {
         }}
       />
       {user.isYouth && (
-        <BottomTab.Screen
+        <Tab.Screen
           name="Achievement"
           component={Achievement}
           options={{
@@ -78,7 +73,7 @@ export default function BottomTabNavigator() {
           }}
         />
       )}
-      <BottomTab.Screen
+      <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -87,26 +82,20 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-    </BottomTab.Navigator>
+    </Tab.Navigator>
   );
 }
 
 function MyTabBar({ state, descriptors, navigation }) {
   const user = useSelector((state: any) => state.user);
+
   return (
-    // state.index == 1 ? (
-    //   <></>
-    // ) :
     <View
       style={{
         flexDirection: "row",
         backgroundColor: "#ffffff",
-        // height: 50,
-
         padding: 15,
         borderRadius: 25,
-        // justifyContent: "center",
-        // alignItems: "center",
         marginHorizontal: 30,
         overflow: "hidden",
         position: "absolute",
@@ -144,21 +133,21 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         return (
           <TouchableOpacity
+            key={index}
+            style={{ flex: 1, alignItems: "center" }}
             accessibilityRole="button"
             accessibilityStates={isFocused ? ["selected"] : []}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            key={index}
-            style={{ flex: 1, alignItems: "center" }}
           >
             <Icon
+              as={options.tabBarIcon}
               color={
                 isFocused ? (user.isYouth ? "#ff9f00" : "#78C9A7") : "#c2c2c2"
               }
-              as={options.tabBarIcon}
-            ></Icon>
+            />
           </TouchableOpacity>
         );
       })}
@@ -166,28 +155,18 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
-  color: string;
-}) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const TabOneStack = createStackNavigator();
 
 function TabOneNavigator() {
   const user = useSelector((state: any) => state.user);
+
   return (
     <TabOneStack.Navigator
       screenOptions={{
         headerTitle: () => <Text></Text>,
         headerStyle: {
           backgroundColor: user.isYouth ? "#ff9f00" : "#78C9A7",
-          height: 30,
+          height: 40,
           shadowOffset: { height: 0 },
         },
       }}
@@ -203,7 +182,7 @@ function TabOneNavigator() {
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const TabTwoStack = createStackNavigator();
 
 function TabTwoNavigator() {
   return (
@@ -212,7 +191,7 @@ function TabTwoNavigator() {
         name="ChatList"
         component={ChatListScreen}
         options={{
-          header: () => null,
+          headerShown: false,
           headerTitle: () => <Text></Text>,
         }}
       />

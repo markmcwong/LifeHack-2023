@@ -1,16 +1,13 @@
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-import * as ImagePicker from "expo-image-picker";
 import * as firestoreTypes from "@firebase/firestore-types";
 
 import { parseGroups, parseMessages } from "./util";
 
-import { data } from "../screens/ProfileScreen";
 import firebase from "firebase/compat/app";
 import { firebaseConfig } from "./firebaseConfig";
 import store from "../state/store";
-import uuid from "react-native-uuid";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -136,103 +133,17 @@ export const getUserRecord = async (userId: string) => {
   });
 };
 
-export const addDepositRecord = async (
-  userId: any,
-  dropoffPoint: any,
-  recycledObject: any,
-  beforeImage: any,
-  afterImage: any,
-  currentPoints: number
-) => {
-  const points = data.filter((x) => x.name == recycledObject)[0].points ?? 0;
-  db.collection("history").add({
-    _createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    user: userId,
-    location: dropoffPoint,
-    recycledObject: recycledObject,
-    beforeImage: beforeImage,
-    afterImage: afterImage,
-    points: points,
-  });
-  db.collection("user")
-    .doc(userId)
-    .update({ reward: currentPoints + points });
-  getUserRecord(userId);
-};
-
-export const uploadImageAsync = async (uri: string) => {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob: any = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
-
-  const ref = firebase.storage().ref().child(uuid.v4().toString());
-  const snapshot = await ref.put(blob);
-
-  // We're done with the blob, close and release it
-  blob.close();
-
-  return await snapshot.ref.getDownloadURL();
-};
-
-export const pickImage = async (
-  callbackUploading: Function,
-  callbackImage: Function
-) => {
-  let pickerResult = await ImagePicker.launchImageLibraryAsync({
-    allowsEditing: true,
-    aspect: [4, 3],
-  });
-
-  //   console.log({ pickerResult });
-  handleImagePicked(pickerResult, callbackUploading, callbackImage);
-};
-
-const handleImagePicked = async (
-  pickerResult: ImagePicker.ImagePickerResult,
-  callbackUploading: Function,
-  callbackImage: Function
-) => {
-  try {
-    callbackUploading(true);
-
-    if (!pickerResult.cancelled) {
-      const uploadUrl = await uploadImageAsync(pickerResult.uri);
-      callbackImage(uploadUrl);
-    }
-  } catch (e) {
-    console.log(e);
-    alert("Upload failed, sorry :(");
-  } finally {
-    callbackUploading(false);
-  }
-};
-
 export const fetchGroupByUserID = (uid: string, callback: Function) => {
   console.log("start this" + uid);
   const groupRef = db.collection("message");
   groupRef
     .where("members", "array-contains", db.collection("user").doc(uid))
     .onSnapshot((querySnapshot: firestoreTypes.QuerySnapshot) => {
-      console.log("hiii" + querySnapshot.size);
       let groups: any = [];
       querySnapshot.forEach((doc: any) => {
         const id = doc.id;
-        console.log("hi");
         if (doc) groups.push({ id, ...doc.data() });
       });
-      console.log(groups);
       callback(parseGroups(uid, groups));
     });
 };
@@ -278,13 +189,17 @@ export const fetchUsers = async (languages: string[]) => {
 export const sendNewMessage = async (
   id: string,
   message: string,
-  userId: string
+  userId: string,
+  warning = false,
+  warningText = ""
 ) => {
   const messageRef = db.collection("message");
   // console.log(message);
   const newMessage = await messageRef.doc(id).collection("messages").add({
     text: message,
     sentBy: userId,
+    warning: warning,
+    warningText: warningText,
     createdAt: firebase.firestore.Timestamp.now(),
   });
   messageRef.doc(id).update({
@@ -297,13 +212,20 @@ export const sendNewMessage = async (
 export const fetchUserDetail = async (ids: any[], callback: Function) => {
   let promises: Promise<any>[] = [];
   let users: any = [];
-  ids.forEach(async (id: any) => {
+  console.log("my ids are " + ids);
+  ids.forEach((id: any) => {
     promises.push(
-      id.get().then((doc) => {
-        const data: any = doc.data();
-        // console.log(data);
-        users.push({ email: data.email, name: data.name });
-      })
+      db
+        .collection("user")
+        .doc(id)
+        .get()
+        .then((doc) => {
+          const data: any = doc.data();
+          users.push({ email: data.email, name: data.name });
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     );
   });
   await Promise.all(promises);

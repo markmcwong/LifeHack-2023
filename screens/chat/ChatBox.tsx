@@ -79,7 +79,7 @@ const ChatBox = ({ route, user, navigation }) => {
             role: "user",
             content: `Is this following sentence in the language ${language} correct? "${messages[0].text}". 
             Reply "Yes" or "No", follow with what is wrong with the linguistic structure/grammar or the mistake the student has make, and the correct answer/suggestion, as a ${language} Language teacher talking to me.
-            Please refer to the student as "you", be precise and and write suggestions and mistakes in bullet points`,
+            Please refer to the student as "you", be precise and and write suggestions and mistakes in bullet points. Be aware that the sentence is sent in a Chat/Messenging app, hence scenarios like incomplete sentences are less important and hence shouuld say No as there is no mistake.`,
           },
         ],
         temperature: 0,

@@ -26,11 +26,12 @@ export const parseGroups = (uid: string, data: any) => {
   return data.map((item: any, index: number) => {
     return {
       id: item.id,
-      lastText: item.lastText,
-      lastSent: (item.lastSent as firebase.firestore.Timestamp).toDate(),
-      members: item.members.filter(
-        (x) => (x as firestoreTypes.DocumentReference).id != uid
-      )[0],
+      lastText: item.lastText ?? "",
+      lastSent: (item.lastSent as firebase.firestore.Timestamp)?.toDate() ?? new Date(),
+      members: item.members
+        ?.filter((x) => (x as firestoreTypes.DocumentReference)?.id != uid)
+        ?.map((x) => (x as firestoreTypes.DocumentReference)?.id)
+        ?.shift() ?? "",
     };
   });
 };

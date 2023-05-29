@@ -64,7 +64,7 @@ function LogoTitle(user: any, setDrawerOpen: Function) {
       marginTop={-15}
     >
       <Text style={{ fontSize: 16, color: "#FFF" }}>Welcome!</Text>
-      <Text style={{ fontSize: 24, color: "#FFF", marginTop: -5 }}>
+      <Text style={{ fontSize: 20, color: "#FFF", marginTop: -5 }}>
         {user.name}
       </Text>
     </VStack>
@@ -195,7 +195,7 @@ const TabOneScreen = (props: any) => {
                   >
                     <Text
                       style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: "bold",
                         color: "#46454C",
                       }}

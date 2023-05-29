@@ -122,6 +122,8 @@ export default function PersonDetailScreen({ navigation, route }) {
                 <ScrollView
                   horizontal={true}
                   // height="60%"
+                  // bounces={false}
+                  overScrollMode="never"
                   style={{
                     marginLeft: "3%",
                     marginBottom: "1%",
@@ -157,7 +159,6 @@ export default function PersonDetailScreen({ navigation, route }) {
                             padding: 12,
                             paddingLeft: 12,
                             paddingRight: 12,
-                            // paddingBottom: 0,
                             borderRadius: 20,
                           }}
                         >

@@ -117,7 +117,7 @@ const Achievement = (props: any) => {
         <HStack style={styles.topBar}>
           <Text
             style={{
-              fontSize: 24,
+              fontSize: 20,
               color: "#ff7200",
               fontWeight: "800",
               fontFamily: "Avenir",

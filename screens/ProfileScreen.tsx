@@ -166,7 +166,8 @@ const ProfileScreen = (props: any) => {
         <HStack style={styles.topBar}>
           <Text
             style={{
-              fontSize: 24,
+              fontSize: 20,
+              fontFamily: "Avenir",
               color: props.user.isYouth ? "#FF7E41" : "#78C9A7",
               fontWeight: "500",
             }}

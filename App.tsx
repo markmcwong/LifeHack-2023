@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "react-native-url-polyfill/auto";
 
 import * as React from "react";
 
@@ -7,6 +8,8 @@ import Navigation from "./navigation";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 import firebase from "firebase/compat/app";
 import { getUserRecord } from "./services/firestore";
 import store from "./state/store";
@@ -18,6 +21,7 @@ import useColorScheme from "./hooks/useColorScheme";
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+  TimeAgo.addDefaultLocale(en);
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {

@@ -6,7 +6,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import OnboardingStack from "./AuthNavigation";
 import PersonDetail from "../screens/PersonDetail";
 import { RootStackParamList } from "../types";
-import chatBox from "../screens/chatBox";
+import chatBox from "../screens/chat/ChatBox";
 import { connect } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 

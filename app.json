@@ -20,7 +20,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lifehack.variable_undefined"
+      "bundleIdentifier": "com.lifehack.test"
     },
     "android": {
       "adaptiveIcon": {

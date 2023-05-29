@@ -1,5 +1,3 @@
-import "firebase/firestore";
-
 import * as React from "react";
 
 import {
@@ -9,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Badge,
   Divider,
@@ -21,24 +18,22 @@ import {
   Text,
   VStack,
 } from "native-base";
-import { SceneMap, TabView } from "react-native-tab-view";
 import { connect, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "../components/Themed";
-import firebase from "firebase";
-import { getHistory } from "../services/firestore";
 import { getUserDetails } from "../services/firestore";
 import { logout } from "../services/auth";
 
-const User = {
-  name: "Robe Jobs",
-  created: "2018-02-21",
-  tags: ["programmer", "developer", "coder"],
-  introduction:
-    "Hello my friends :) I am Robe Jobs, would love to make some new friends while learning some languages! always find elderly like you interesting, as you have SO MUCH experiences and stories that I do not possess! Would always love to chat with you and know more about your lives ;)",
-};
+// const User = {
+//   name: "Robe Jobs",
+//   created: "2018-02-21",
+//   tags: ["programmer", "developer", "coder"],
+//   introduction:
+//     "Hello my friends :) I am Robe Jobs, would love to make some new friends while learning some languages! always find elderly like you interesting, as you have SO MUCH experiences and stories that I do not possess! Would always love to chat with you and know more about your lives ;)",
+// };
 
 const SecondRoute = (state: any, props: any) => {
   const [userDetails, setUserDetails] = useState<any>(null);

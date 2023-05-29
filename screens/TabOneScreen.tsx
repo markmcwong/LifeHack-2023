@@ -1,58 +1,36 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import * as React from "react";
+
 import {
-  VStack,
-  Image,
-  Button,
-  HStack,
-  Box,
   Avatar,
   Badge,
+  Box,
+  Button,
   Fab,
-  Pressable,
-  IconButton,
+  HStack,
   Icon,
-  View,
+  IconButton,
+  Image,
+  Pressable,
   Text,
+  VStack,
+  View,
 } from "native-base";
-import * as React from "react";
-import { useEffect, useState } from "react";
 import { LogBox, StyleSheet, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import { ScrollView } from "react-native-gesture-handler";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
-import { paddingLeft } from "styled-system";
-
-import EditScreenInfo from "../components/EditScreenInfo";
-import SlideUpDrawer from "../widgets/slideUpDrawer";
-import GestureRecognizer from "react-native-swipe-gestures";
 import { fetchUsers, getRecommendedUsers } from "../services/firestore";
+import { useEffect, useState } from "react";
+
+import { BarCodeScanner } from "expo-barcode-scanner";
+import EditScreenInfo from "../components/EditScreenInfo";
+import GestureRecognizer from "react-native-swipe-gestures";
 import { Ionicons } from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
+import SlideUpDrawer from "../widgets/slideUpDrawer";
+import { connect } from "react-redux";
+import { createStackNavigator } from "@react-navigation/stack";
+import { paddingLeft } from "styled-system";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 LogBox.ignoreAllLogs();
-
-const userListArray = [
-  {
-    profilePicture: null,
-    languages: ["English", "Spanish", "Japanese"],
-    name: "POOCREAMPIE",
-  },
-  {
-    profilePicture: null,
-    languages: ["English", "Spanish", "Spanish", "Spanish", "Japanese"],
-    name: "POOCREAMPIE",
-  },
-  {
-    profilePicture: null,
-    languages: ["English", "Spanish", "Spanish", "Spanish", "Japanese"],
-    name: "POOPCREAMPIE",
-  },
-  {
-    profilePicture: null,
-    languages: ["English", "Spanish", "Spanish", "Spanish", "Japanese"],
-    name: "POOPIECREAMPIE",
-  },
-];
 
 function LogoTitle(user: any, setDrawerOpen: Function) {
   return (
@@ -174,13 +152,13 @@ const TabOneScreen = (props: any) => {
                 }}
               >
                 <HStack space={4} w="100%" style={{ alignItems: "center" }}>
-                  <TouchableOpacity 
-                      onPress={() =>
-                        props.navigation.navigate("PersonDetailScreen", {
-                          id: item.id,
-                        })
-                      }
-                    >
+                  <TouchableOpacity
+                    onPress={() =>
+                      props.navigation.navigate("PersonDetailScreen", {
+                        id: item.id,
+                      })
+                    }
+                  >
                     <Avatar
                       size="lg"
                       source={require("../assets/images/robeJobs.jpg")}
